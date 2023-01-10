@@ -9,6 +9,7 @@ function App() {
   const [originalPokeData, setOriginalPokeData] = useState("")
   const [filterType, setFilterType] = useState("All")
   const [filterWeakness, setFilterWeakness] = useState("All")
+  const [filterList, setFilterList] = useState("")
 
   //Grab pokemon API
   useEffect(() => {
@@ -33,15 +34,20 @@ function App() {
   //Displays specific pokemon given the name input from search box
   function handleSearchBox(input) {
     let searchMatch = originalPokeData.filter(pokemon => pokemon.name.toLowerCase() === input.toLowerCase())
-    if (searchMatch.length > 0) {
-      document.getElementById("pokemonType").selectedIndex = 0
-      document.getElementById("pokemonWeakness").selectedIndex = 0
-      setPokeData(searchMatch)
-    } else if(input.length === 0) {
-      document.getElementById("pokemonType").selectedIndex = 0
-      document.getElementById("pokemonWeakness").selectedIndex = 0
-      setPokeData(originalPokeData)
+    let searchFilteredMatch = filterList.filter(pokemon => pokemon.name.toLowerCase() === input.toLowerCase())
+
+    //If filters exists, search with filtered list
+    if(filterType !== "All" && filterWeakness !== "All" && searchFilteredMatch.length > 0) {
+      setPokeData(searchFilteredMatch)
+      return
+    } else if (filterType !== "All" && filterWeakness !== "All" && input.length === 0) {
+      setPokeData(filterList)
     }
+    
+    //If no filters, search original data
+    if (searchMatch.length > 0) {
+      setPokeData(searchMatch)
+    } 
   }
 
   //Display specific pokemon according to type selction, filter with weakness if it exists
@@ -53,19 +59,23 @@ function App() {
         if(filterWeakness !== "All") {
           console.log("if type")
           setFilterType(type)
+          setFilterList(typeMatch.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
           setPokeData(typeMatch.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
         } else {
           console.log("else type")
           setFilterType(type)
+          setFilterList(typeMatch)
           setPokeData(typeMatch)
         }
     } else if(type === "All") {
       //Reset back to all, if filter weakness exists, display pokemon based off weakness
       if (filterWeakness !== "All") {
         setFilterType(type)
+        setFilterList(originalPokeData.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
         setPokeData(originalPokeData.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
       } else {
         setFilterType(type)
+        setFilterList(originalPokeData)
         setPokeData(originalPokeData)
       }
     }
@@ -80,9 +90,11 @@ function App() {
       console.log(weaknessMatch)
         if(filterType !== "All") {
           setFilterWeakness(weakness)
+          setFilterList(weaknessMatch.filter(pokemon => pokemon.type.includes(filterType)))
           setPokeData(weaknessMatch.filter(pokemon => pokemon.type.includes(filterType)))
         } else {
           setFilterWeakness(weakness)
+          setFilterList(weaknessMatch)
           setPokeData(weaknessMatch)
         }
     } else if (weakness === "All") {
@@ -90,9 +102,11 @@ function App() {
       if(filterType !== "All") {
         console.log("oof filter type")
         setFilterWeakness(weakness)
+        setFilterList(originalPokeData.filter(pokemon => pokemon.type.includes(filterType)))
         setPokeData(originalPokeData.filter(pokemon => pokemon.type.includes(filterType)))
       } else {
         setFilterWeakness(weakness)
+        setFilterList(originalPokeData)
         setPokeData(originalPokeData)
       }
     }
