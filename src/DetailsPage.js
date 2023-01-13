@@ -31,16 +31,37 @@ export default function DetailsPage(props) {
     //Display Extra Pokemon details
 
   return (
-    <div key={pokemon.id}>
+    <div>
         <Link to="/"><button>← Return to PokeDex</button></Link>
+        <div key={pokemon.id}>
         <h3>{pokemon.name}</h3>
         <img src={pokemon.img} alt={pokemon.name}></img>
-        <p>Type: {pokemon.type && pokemon.type.join(', ')}</p>
+        {/* <p>Type: {pokemon.type && pokemon.type.join(', ')}</p>
         <p>Weaknesses: {pokemon.weaknesses && pokemon.weaknesses.join(', ')}</p>
-        <p>#{pokemon.num}</p>
         <span>Height: Weight:</span>
         <p>Candy: </p>
-        <p>Spawn Chance: Spawn Time: Average Spawns: </p>
+        <p>Spawn Chance: Spawn Time: Average Spawns: </p> */}
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Num</th>
+                <th>Type</th>
+                <th>Weakness</th>
+                <th>Height</th>
+                <th>Weight</th>
+                <th>Spawn Time</th>
+            </tr>
+            <tr>
+                <td>{pokemon.num}</td>
+                <td>{pokemon.type && pokemon.type.join(', ')}</td>
+                <td>{pokemon.weaknesses && pokemon.weaknesses.join(', ')}</td>
+                <td>{pokemon.height}</td>
+                <td>{pokemon.weight}</td>
+                <td>{pokemon.spawn_time}</td>
+            </tr>
+            </tbody>
+        </table>
 
         {pokemon.prev_evolution && 
         <div>
@@ -61,6 +82,7 @@ export default function DetailsPage(props) {
         })}
         </ul>
         </div>}
+    </div>
     </div>
   )
 }
