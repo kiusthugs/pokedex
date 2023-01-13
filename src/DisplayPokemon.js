@@ -1,17 +1,13 @@
 import React from 'react'
+import FilterPokemon from './FilterPokemon'
+import ListPokemon from './ListPokemon'
 
-export default function DisplayPokemon({pokeData}) {
+export default function DisplayPokemon({originalPokeData, pokeData, handleSearchBox, handleType, handleWeakness}) {
   return (
-    pokeData.map((pokemon) => {
-        return (
-            <div key={pokemon.id}>
-                <h3>{pokemon.name}</h3>
-                <img src={pokemon.img} alt={pokemon.name}></img>
-                <p>Type: {pokemon.type.join(', ')}</p>
-                <p>Weaknesses: {pokemon.weaknesses.join(', ')}</p>
-                <p>#{pokemon.num}</p>
-            </div>
-        )
-    })
+    <div>
+    <h1>PokeDex</h1>
+    {pokeData && <FilterPokemon originalPokeData={originalPokeData} handleSearchBox={handleSearchBox} handleType={handleType} handleWeakness={handleWeakness}/>}
+    {<ListPokemon pokeData={pokeData}/>}
+    </div>
   )
 }

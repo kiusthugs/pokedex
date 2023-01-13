@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import './App.css';
-import FilterPokemon from "./FilterPokemon";
 import DisplayPokemon from "./DisplayPokemon";
+import DetailsPage from "./DetailsPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -34,9 +35,12 @@ function App() {
   //Displays specific pokemon given the name input from search box
   function handleSearchBox(input) {
     let searchMatch = originalPokeData.filter(pokemon => pokemon.name.toLowerCase() === input.toLowerCase())
-    let searchFilteredMatch = filterList.filter(pokemon => pokemon.name.toLowerCase() === input.toLowerCase())
+    let searchFilteredMatch
+    if(filterList) {
+      searchFilteredMatch = filterList.filter(pokemon => pokemon.name.toLowerCase() === input.toLowerCase())
+    }
 
-    //If filters exists, search with filtered list
+    //Search based off filters
     if(filterType !== "All" && filterWeakness !== "All" && searchFilteredMatch.length > 0) {
       setPokeData(searchFilteredMatch)
       return
@@ -44,10 +48,13 @@ function App() {
       setPokeData(filterList)
     }
     
-    //If no filters, search original data
     if (searchMatch.length > 0) {
       setPokeData(searchMatch)
-    } 
+    } else if (input.length === 0 && filterType === "All" && filterWeakness === "All") {
+      setPokeData(originalPokeData)
+    } else if (input.length === 0 && (filterType !== "All" || filterWeakness !== "All")) {
+      setPokeData(filterList)
+    }
   }
 
   //Display specific pokemon according to type selction, filter with weakness if it exists
@@ -57,12 +64,10 @@ function App() {
     if(type !== "All") {
       let typeMatch = originalPokeData.filter(pokemon => pokemon.type.includes(type))
         if(filterWeakness !== "All") {
-          console.log("if type")
           setFilterType(type)
           setFilterList(typeMatch.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
           setPokeData(typeMatch.filter(pokemon => pokemon.weaknesses.includes(filterWeakness)))
         } else {
-          console.log("else type")
           setFilterType(type)
           setFilterList(typeMatch)
           setPokeData(typeMatch)
@@ -87,7 +92,6 @@ function App() {
 
     if(weakness !== "All") {
       let weaknessMatch = originalPokeData.filter(pokemon => pokemon.weaknesses.includes(weakness))
-      console.log(weaknessMatch)
         if(filterType !== "All") {
           setFilterWeakness(weakness)
           setFilterList(weaknessMatch.filter(pokemon => pokemon.type.includes(filterType)))
@@ -100,7 +104,6 @@ function App() {
     } else if (weakness === "All") {
       //Reset back to all, if filter type exists, display pokemon based off type
       if(filterType !== "All") {
-        console.log("oof filter type")
         setFilterWeakness(weakness)
         setFilterList(originalPokeData.filter(pokemon => pokemon.type.includes(filterType)))
         setPokeData(originalPokeData.filter(pokemon => pokemon.type.includes(filterType)))
@@ -113,13 +116,14 @@ function App() {
   }
 
   return (
+    <BrowserRouter>
     <div>
-      <div>
-      <h1>PokeDex</h1>
-      {pokeData && <FilterPokemon originalPokeData={originalPokeData} handleSearchBox={handleSearchBox} handleType={handleType} handleWeakness={handleWeakness}/>}
-      </div>
-      {pokeData && <DisplayPokemon pokeData={pokeData}/>}
+      <Routes>
+        <Route path="/" element={pokeData && <DisplayPokemon originalPokeData={originalPokeData} handleSearchBox={handleSearchBox} handleType={handleType} handleWeakness={handleWeakness} pokeData={pokeData}/>} />
+        <Route path="/:id" element={pokeData && <DetailsPage pokeData={pokeData} originalPokeData={originalPokeData}/>} />
+      </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
