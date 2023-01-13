@@ -28,9 +28,7 @@ export default function DetailsPage(props) {
         getPokemonDetails()
     })
 
-    //Evolution implementation
-    //if has next_evolution, list out evolutions
-    //on evolution screen, have home button and previous evolution button
+    //Display Extra Pokemon details
 
   return (
     <div key={pokemon.id}>
