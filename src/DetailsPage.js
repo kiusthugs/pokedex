@@ -4,7 +4,6 @@ import { useParams, Link } from 'react-router-dom'
 
 export default function DetailsPage(props) {
     const [pokemon, setPokemon] = useState({})
-    const [nextEvolution, setNextEvolution] = useState(false)
 
     const {id} = useParams()
 
@@ -21,10 +20,6 @@ export default function DetailsPage(props) {
         const pokemonDetails = props.pokeData.find(el => {
             return el.id === parseInt(id)
         })
-
-        if(pokemonDetails.hasOwnProperty("next_evolution")) {
-            setNextEvolution(true)
-        }
 
         setPokemon(pokemonDetails)
     }
@@ -48,12 +43,26 @@ export default function DetailsPage(props) {
         <span>Height: Weight:</span>
         <p>Candy: </p>
         <p>Spawn Chance: Spawn Time: Average Spawns: </p>
-        <p>Next Evolution: </p>
+
+        {pokemon.prev_evolution && 
+        <div>
+        <p>Previous Evolution&#40;s&#41;: </p>
         <ul>
-        {nextEvolution === true && pokemon.next_evolution.map((el) => {
-            return (<Link><li>{el.name}</li></Link>)
+        {pokemon.prev_evolution && pokemon.prev_evolution.map((el) => {
+            return (<Link to={`/${parseInt(el.num)}`}key={el.num}><li>{el.name}</li></Link>)
         })}
         </ul>
+        </div>}
+
+        {pokemon.next_evolution && 
+        <div>
+        <p>Evolution&#40;s&#41;: </p>
+        <ul>
+        {pokemon.next_evolution && pokemon.next_evolution.map((el) => {
+            return (<Link to={`/${parseInt(el.num)}`}key={el.num}><li>{el.name}</li></Link>)
+        })}
+        </ul>
+        </div>}
     </div>
   )
 }
