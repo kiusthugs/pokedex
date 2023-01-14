@@ -13,7 +13,7 @@ export default function FilterPokemon({originalPokeData, handleSearchBox, handle
 
 
   return (
-    <div>
+    <div className='filter'>
 
     <div>
         <input size="35" type="text" id="name" name="name" placeholder="Search for specific Pokemon by name..." onChange={(e) => handleSearchBox(e.target.value)}></input>

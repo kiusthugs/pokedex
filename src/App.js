@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import './App.css';
+import './css/App.css';
 import DisplayPokemon from "./DisplayPokemon";
 import DetailsPage from "./DetailsPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -117,12 +117,10 @@ function App() {
 
   return (
     <BrowserRouter>
-    <div>
       <Routes>
         <Route path="/" element={pokeData && <DisplayPokemon originalPokeData={originalPokeData} handleSearchBox={handleSearchBox} handleType={handleType} handleWeakness={handleWeakness} pokeData={pokeData}/>} />
         <Route path="/:id" element={pokeData && <DetailsPage pokeData={pokeData} originalPokeData={originalPokeData}/>} />
       </Routes>
-    </div>
     </BrowserRouter>
   );
 }

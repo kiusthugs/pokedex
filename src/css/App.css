@@ -1,0 +1,15 @@
+@import 'search-filter.css';
+@import 'screen.css';
+
+* {
+    box-sizing: border-box;
+    font-family: "Flexo Medium", sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+#root {
+    background-color: #CC0000;
+}

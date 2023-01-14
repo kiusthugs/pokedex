@@ -5,7 +5,7 @@ export default function ListPokemon({pokeData}) {
   return (
         pokeData.map((pokemon) => {
         return (
-            <div key={pokemon.id}>
+            <div key={pokemon.id} className="list-item">
                 <h3>{pokemon.name}</h3>
                 <img src={pokemon.img} alt={pokemon.name}></img>
                 <p>Type: {pokemon.type.join(', ')}</p>
