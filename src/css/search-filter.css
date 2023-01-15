@@ -1,25 +1,25 @@
 header {
     background-color: #FF0000;
-    padding: .2rem;
     display: flex;
     text-align: center;
     position : sticky;
-	top :0;
+	top : 0;
 }
 
 header h1 {
     padding: .5em 0;
-    font-size: 2.5em;
+    font-size: 3em;
     font-family: 'Pokemon Solid', sans-serif;
     color: #FFCC00;
     letter-spacing: 7px;
     text-shadow: 5px 5px black;
+    margin-left: 2rem;
 }
 
 .filter {
     display: flex;
     align-items: center;
-    margin-left: 1.5rem;
+    margin-left: 2rem;
 }
 
 .filter div {
