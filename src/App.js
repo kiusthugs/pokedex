@@ -115,11 +115,15 @@ function App() {
     }
   }
 
+  function handleReturnPokedex() {
+    setPokeData(originalPokeData)
+  }
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={pokeData && <DisplayPokemon originalPokeData={originalPokeData} handleSearchBox={handleSearchBox} handleType={handleType} handleWeakness={handleWeakness} pokeData={pokeData}/>} />
-        <Route path="/:id" element={pokeData && <DetailsPage pokeData={pokeData} originalPokeData={originalPokeData}/>} />
+        <Route path="/:id" element={pokeData && <DetailsPage pokeData={pokeData} originalPokeData={originalPokeData} handleReturnPokedex={handleReturnPokedex}/>} />
       </Routes>
     </BrowserRouter>
   );

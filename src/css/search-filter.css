@@ -11,7 +11,7 @@ header h1 {
     padding: .5em 0;
     font-size: 2.5em;
     font-family: 'Pokemon Solid', sans-serif;
-    color: yellow;
+    color: #FFCC00;
     letter-spacing: 7px;
     text-shadow: 5px 5px black;
 }
@@ -25,4 +25,15 @@ header h1 {
 .filter div {
     margin: .5rem;
     padding: .5em 0;
+}
+
+label {
+    background-color: #FFCC00;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+select {
+    margin: 10px;
+    padding: 0 5px;
 }

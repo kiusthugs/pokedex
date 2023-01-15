@@ -7,15 +7,7 @@ export default function DetailsPage(props) {
 
     const {id} = useParams()
 
-    // function handleNextEvolution(pokemon) {
-    //     setPokemon(pokemon)
-    // }
-
-    // function findNextEvolution(num) {
-    //     const evolution = props.originalPokeData.find(el => el.num === num)
-    //     console.log(evolution)
-    // }
-
+    //Use useParams to match id selected with pokemon list
     const getPokemonDetails = () => {
         const pokemonDetails = props.pokeData.find(el => {
             return el.id === parseInt(id)
@@ -28,20 +20,13 @@ export default function DetailsPage(props) {
         getPokemonDetails()
     })
 
-    //Display Extra Pokemon details
-
   return (
-    <div>
-        <Link to="/"><button>← Return to PokeDex</button></Link>
-        <div key={pokemon.id}>
+    <div className="details">
+        {/* onClick with no parentheses, with parentheses, updates parent component state when parent component is not rendering, error */}
+        <Link to="/"><button className='return' onClick={props.handleReturnPokedex}>← Return to PokeDex</button></Link>
+        <div key={pokemon.id} className="details-pokemon">
         <h3>{pokemon.name}</h3>
         <img src={pokemon.img} alt={pokemon.name}></img>
-        {/* <p>Type: {pokemon.type && pokemon.type.join(', ')}</p>
-        <p>Weaknesses: {pokemon.weaknesses && pokemon.weaknesses.join(', ')}</p>
-        <span>Height: Weight:</span>
-        <p>Candy: </p>
-        <p>Spawn Chance: Spawn Time: Average Spawns: </p> */}
-
         <table>
             <tbody>
             <tr>

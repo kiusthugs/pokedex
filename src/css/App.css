@@ -1,9 +1,14 @@
 @import 'search-filter.css';
 @import 'screen.css';
+@import 'details.css';
 
 * {
     box-sizing: border-box;
     font-family: "Flexo Medium", sans-serif;
+}
+
+html {
+    background-color: #CC0000;
 }
 
 body {
@@ -12,4 +17,6 @@ body {
 
 #root {
     background-color: #CC0000;
+    height: 100%;
+    padding: 0 0 10px 0;
 }
